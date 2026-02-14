@@ -1,786 +1,364 @@
 <!DOCTYPE html>
-<html lang="de" class="no-js">
+<html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Titan Spark - Weltmarktführer für Kaltfunken-Technologie. Mieten Sie Sicherheit und Brillanz.">
-    <title>TITAN ONYX | Global Special Effects Enterprise</title>
-    
-    <!-- External Assets -->
-    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;900&family=Inter:wght@100;300;400;700;900&family=JetBrains+Mono:wght@100;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
-    <style>
-        /* 
-           TITAN ONYX DESIGN SYSTEM v7.0
-           Lines: 1200+ (CSS Only)
-        */
-        :root {
-            --primary: #D4AF37;
-            --primary-glow: rgba(212, 175, 55, 0.4);
-            --secondary: #1A1A1A;
-            --bg: #050505;
-            --surface: #0A0A0A;
-            --text: #F5F5F5;
-            --text-dim: #808080;
-            --error: #FF3B30;
-            --success: #34C759;
-            --font-main: 'Inter', sans-serif;
-            --font-head: 'Unbounded', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-            --fluid-100: clamp(1rem, 5vw, 10rem);
-            --transition-slow: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            --transition-fast: all 0.3s ease;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TITAN ONYX v9.0 | Precision Atmosphere Systems</title>
 
-        /* RESET & BASE */
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-        html { scroll-behavior: smooth; font-size: 16px; background: var(--bg); color: var(--text); }
-        body { overflow-x: hidden; font-family: var(--font-main); -webkit-font-smoothing: antialiased; }
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;800&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
 
-        /* CUSTOM CURSOR SYSTEM */
-        #cursor-main { width: 10px; height: 10px; background: var(--primary); border-radius: 50%; position: fixed; z-index: 10000; pointer-events: none; transition: transform 0.1s; }
-        #cursor-follower { width: 40px; height: 40px; border: 1px solid var(--primary); border-radius: 50%; position: fixed; z-index: 9999; pointer-events: none; transition: transform 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67); }
+<style>
 
-        /* BACKGROUND ENGINE */
-        #spark-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; }
-        .bg-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at 50% 50%, transparent 0%, var(--bg) 90%); }
+/* ===============================
+   TITAN ONYX v9 DESIGN SYSTEM
+================================= */
 
-        /* TYPOGRAPHY ENGINE */
-        h1, h2, h3, h4 { font-family: var(--font-head); text-transform: uppercase; line-height: 0.85; letter-spacing: -2px; }
-        .glitch-text { position: relative; display: inline-block; }
-        .glitch-text::after { content: attr(data-text); position: absolute; left: 2px; text-shadow: -1px 0 red; top: 0; color: white; background: var(--bg); overflow: hidden; clip: rect(0,900px,0,0); animation: glitch 3s infinite linear alternate-reverse; }
+:root{
+--gold:#D4AF37;
+--bg:#050505;
+--surface:#0c0c0c;
+--text:#f5f5f5;
+--muted:#888;
+--radius:20px;
+--transition:0.4s ease;
+}
 
-        /* NAVIGATION SYSTEM */
-        nav { position: fixed; top: 0; width: 100%; padding: 40px var(--fluid-100); display: flex; justify-content: space-between; align-items: center; z-index: 1000; transition: var(--transition-slow); }
-        nav.active { padding: 20px var(--fluid-100); background: rgba(5,5,5,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .logo { font-family: var(--font-head); font-weight: 900; font-size: 1.5rem; text-decoration: none; color: white; }
-        .logo span { color: var(--primary); }
-        .nav-items { display: flex; gap: 50px; }
-        .nav-items a { text-decoration: none; color: var(--text-dim); font-size: 0.7rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 2px; transition: var(--transition-fast); }
-        .nav-items a:hover { color: var(--primary); transform: translateY(-2px); }
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+background:var(--bg);
+color:var(--text);
+font-family:Inter,sans-serif;
+overflow-x:hidden;
+}
 
-        /* HERO SECTION */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 var(--fluid-100); position: relative; }
-        .hero-tag { font-family: var(--font-mono); color: var(--primary); margin-bottom: 20px; font-size: 0.9rem; }
-        .hero-title { font-size: clamp(3rem, 15vw, 15rem); font-weight: 900; margin-bottom: 40px; }
-        .hero-title span { -webkit-text-stroke: 1px white; color: transparent; }
+h1,h2,h3{
+font-family:Unbounded,sans-serif;
+text-transform:uppercase;
+letter-spacing:-1px;
+}
 
-        /* COMPONENT: CARDS */
-        .grid-container { display: grid; grid-template-columns: repeat(12, 1fr); gap: 30px; padding: 100px var(--fluid-100); }
-        .bento-card { background: var(--surface); border: 1px solid rgba(255,255,255,0.05); border-radius: 30px; padding: 50px; transition: var(--transition-slow); position: relative; overflow: hidden; }
-        .bento-card:hover { border-color: var(--primary); transform: translateY(-10px); background: #0f0f0f; }
-        .bento-card i { font-size: 3rem; color: var(--primary); margin-bottom: 30px; }
+section{
+padding:120px 8vw;
+}
 
-        /* AI CHATBOT INTERFACE v7.0 */
-        #ai-system { position: fixed; bottom: 50px; right: 50px; z-index: 5000; }
-        .ai-btn { width: 90px; height: 90px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 20px 50px rgba(0,0,0,0.5); transition: var(--transition-slow); }
-        .ai-btn:hover { transform: scale(1.1) rotate(15deg); filter: brightness(1.2); }
-        
-        .ai-panel { position: absolute; bottom: 110px; right: 0; width: 450px; height: 700px; background: var(--surface); border: 1px solid var(--primary); border-radius: 40px; display: none; flex-direction: column; overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.9); backdrop-filter: blur(30px); }
-        .chat-head { padding: 40px; background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
-        .chat-body { flex: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; scrollbar-width: none; }
-        .chat-body::-webkit-scrollbar { display: none; }
-        
-        .msg { padding: 20px 25px; border-radius: 25px; max-width: 85%; font-size: 0.95rem; line-height: 1.6; }
-        .msg.bot { background: rgba(255,255,255,0.05); align-self: flex-start; border-bottom-left-radius: 5px; border: 1px solid rgba(255,255,255,0.1); }
-        .msg.user { background: var(--primary); color: black; align-self: flex-end; border-bottom-right-radius: 5px; font-weight: 700; }
-        
-        .chat-footer { padding: 30px; background: rgba(0,0,0,0.3); display: flex; gap: 15px; border-top: 1px solid rgba(255,255,255,0.05); }
-        .chat-footer input { flex: 1; background: transparent; border: 1px solid rgba(255,255,255,0.1); padding: 18px; border-radius: 20px; color: white; outline: none; transition: 0.3s; }
-        .chat-footer input:focus { border-color: var(--primary); }
-        .chat-footer button { background: var(--primary); border: none; width: 60px; height: 60px; border-radius: 20px; cursor: pointer; transition: 0.3s; }
+/* ===============================
+   NAVIGATION
+================================= */
 
-        /* PRICING ENGINE */
-        .pricing-section { padding: 150px var(--fluid-100); background: #020202; }
-        .price-card { grid-column: span 4; background: var(--surface); padding: 80px 50px; border-radius: 40px; border: 1px solid #111; text-align: center; }
-        .price-card.featured { border-color: var(--primary); transform: scale(1.05); background: linear-gradient(180deg, rgba(212,175,55,0.05) 0%, transparent 100%); }
-        .price-val { font-size: 6rem; font-weight: 900; font-family: var(--font-head); margin: 40px 0; color: var(--primary); }
+nav{
+position:fixed;
+width:100%;
+top:0;
+left:0;
+padding:20px 8vw;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
+z-index:1000;
+transition:var(--transition);
+}
 
-        /* ANIMATIONS */
-        @keyframes glitch { 0% { clip: rect(44px, 9999px, 56px, 0); } 20% { clip: rect(13px, 9999px, 83px, 0); } 100% { clip: rect(67px, 9999px, 20px, 0); } }
+nav.scrolled{
+padding:10px 8vw;
+background:rgba(0,0,0,0.9);
+}
 
-        /* RESPONSIVE */
-        @media (max-width: 1200px) { .grid-container { grid-template-columns: 1fr; } .price-card { grid-column: span 12; } }
-    </style>
+nav a{
+color:var(--muted);
+text-decoration:none;
+margin-left:40px;
+font-size:0.8rem;
+letter-spacing:1px;
+transition:var(--transition);
+}
+
+nav a:hover{
+color:var(--gold);
+}
+
+.logo{
+font-family:Unbounded;
+font-weight:800;
+font-size:1.2rem;
+}
+
+.logo span{
+color:var(--gold);
+}
+
+/* ===============================
+   HERO
+================================= */
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+.hero h1{
+font-size:clamp(3rem,10vw,8rem);
+margin-bottom:40px;
+}
+
+.hero p{
+max-width:600px;
+color:var(--muted);
+font-size:1.2rem;
+line-height:1.6;
+}
+
+/* ===============================
+   STATS
+================================= */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:40px;
+text-align:center;
+}
+
+.stat h2{
+font-size:3rem;
+color:var(--gold);
+}
+
+.stat p{
+color:var(--muted);
+margin-top:10px;
+}
+
+/* ===============================
+   CONFIGURATOR
+================================= */
+
+.configurator{
+background:var(--surface);
+border-radius:var(--radius);
+padding:60px;
+display:grid;
+gap:30px;
+max-width:800px;
+margin:auto;
+}
+
+input[type=range]{
+width:100%;
+}
+
+.price-output{
+font-size:2rem;
+font-weight:700;
+color:var(--gold);
+text-align:center;
+}
+
+/* ===============================
+   ROI CALCULATOR
+================================= */
+
+.roi{
+background:#000;
+}
+
+.roi-box{
+background:var(--surface);
+padding:50px;
+border-radius:var(--radius);
+max-width:800px;
+margin:auto;
+display:grid;
+gap:20px;
+}
+
+.roi-result{
+font-size:2rem;
+color:var(--gold);
+text-align:center;
+}
+
+/* ===============================
+   CTA
+================================= */
+
+.cta{
+text-align:center;
+background:linear-gradient(180deg,#111,#000);
+}
+
+.cta button{
+background:var(--gold);
+border:none;
+padding:20px 50px;
+border-radius:50px;
+font-weight:700;
+cursor:pointer;
+transition:var(--transition);
+}
+
+.cta button:hover{
+transform:scale(1.05);
+}
+
+/* ===============================
+   FOOTER
+================================= */
+
+footer{
+padding:60px 8vw;
+text-align:center;
+color:var(--muted);
+font-size:0.8rem;
+border-top:1px solid #111;
+}
+
+/* ===============================
+   RESPONSIVE
+================================= */
+
+@media(max-width:768px){
+section{padding:100px 6vw}
+nav a{margin-left:20px}
+}
+
+</style>
 </head>
+
 <body>
 
-    <div id="cursor-main"></div>
-    <div id="cursor-follower"></div>
-    <canvas id="spark-canvas"></canvas>
-    <div class="bg-overlay"></div>
+<nav id="navbar">
+<div class="logo">TITAN<span>ONYX</span></div>
+<div>
+<a href="#tech">Technologie</a>
+<a href="#config">Konfigurator</a>
+<a href="#roi">ROI</a>
+<a href="#contact">Kontakt</a>
+</div>
+</nav>
 
-    <nav id="main-nav">
-        <a href="#" class="logo">TITAN<span>ONYX</span></a>
-        <div class="nav-links">
-            <div class="nav-items">
-                <a href="#vision">Vision</a>
-                <a href="#specs">Technologie</a>
-                <a href="#rent">Miete</a>
-                <a href="#safety">Sicherheit</a>
-            </div>
-        </div>
-        <a href="#rent" style="background: var(--primary); color: black; padding: 12px 25px; border-radius: 5px; font-weight: 900; text-decoration: none; font-size: 0.7rem;">Quick Booking</a>
-    </nav>
+<section class="hero">
+<h1>PRECISION<br><span style="color:var(--gold)">ATMOSPHERE</span></h1>
+<p>Die nächste Generation der Kaltfunken-Technologie für Premium Events, Luxus-Hochzeiten und Corporate Launches weltweit.</p>
+</section>
 
-    <section class="hero">
-        <span class="hero-tag">// GLOBAL INDUSTRIAL GRADE EFFECTS</span>
-        <h1 class="hero-title">PRECISION<br><span>ATMOSPHERE</span></h1>
-        <p style="max-width: 600px; color: var(--text-dim); font-size: 1.3rem; font-weight: 200;">Wir definieren die Grenzen der physischen Inszenierung neu. Titan Onyx bietet weltweit die fortschrittlichste Kaltfunken-Technologie für Luxus-Events und Industrie-Präsentationen.</p>
-    </section>
+<section class="stats">
+<div class="stat">
+<h2 id="stat1">0</h2>
+<p>Installationen</p>
+</div>
+<div class="stat">
+<h2 id="stat2">0</h2>
+<p>Länder</p>
+</div>
+<div class="stat">
+<h2 id="stat3">0</h2>
+<p>Zertifizierungen</p>
+</div>
+</section>
 
-    <section id="specs" class="grid-container">
-        <div class="bento-card" style="grid-column: span 8;">
-            <i class="fas fa-microchip"></i>
-            <h2>SMART-CORE V7</h2>
-            <p>Unsere Maschinen werden durch den TITAN-Core gesteuert. Echtzeit-Telemetrie, DMX-Over-Air und intelligente Hitzekontrolle sorgen für maximale Zuverlässigkeit.</p>
-        </div>
-        <div class="bento-card" style="grid-column: span 4;">
-            <i class="fas fa-shield-check"></i>
-            <h2>ISO 9001</h2>
-            <p>Vollständig zertifiziert für Indoor-Einsätze ohne Genehmigungspflicht.</p>
-        </div>
-        <div class="bento-card" style="grid-column: span 6;">
-            <i class="fas fa-wind"></i>
-            <h2>ZERO EMISSION</h2>
-            <p>Kein Rauch, kein Schwarzpulver, kein Geruch. 100% sauberer Betrieb in jeder Hotel-Lobby.</p>
-        </div>
-        <div class="bento-card" style="grid-column: span 6;">
-            <i class="fas fa-bolt"></i>
-            <h2>5.5M REACH</h2>
-            <p>Stufenlose Höhenregulierung für jede Deckenhöhe – von 1 Meter bis zu massiven 5,5 Metern.</p>
-        </div>
-    </section>
+<section id="config">
+<h2 style="text-align:center;margin-bottom:60px">EVENT KONFIGURATOR</h2>
+<div class="configurator">
+<label>Geräte Anzahl</label>
+<input type="range" min="1" max="12" value="2" id="deviceCount">
 
-    <section id="rent" class="pricing-section">
-        <div class="grid-container">
-            <div class="price-card">
-                <h3>ONYX ONE</h3>
-                <div class="price-val">90€</div>
-                <p>1x Titan Unit | 200g Granulat | Remote</p>
-                <button class="ai-btn" style="width:100%; border-radius: 10px; margin-top: 40px;">Auswählen</button>
-            </div>
-            <div class="price-card featured">
-                <h3>ONYX DUO</h3>
-                <div class="price-val">160€</div>
-                <p>2x Titan Unit | 400g Granulat | Sync-Master</p>
-                <button class="ai-btn" style="width:100%; border-radius: 10px; margin-top: 40px; background: white; color: black;">Empfohlen</button>
-            </div>
-            <div class="price-card">
-                <h3>ONYX QUAD</h3>
-                <div class="price-val">320€</div>
-                <p>4x Titan Unit | 1kg Granulat | DMX Hub</p>
-                <button class="ai-btn" style="width:100%; border-radius: 10px; margin-top: 40px;">Auswählen</button>
-            </div>
-        </div>
-    </section>
+<label>Einsatzdauer (Minuten)</label>
+<input type="range" min="1" max="60" value="10" id="duration">
 
-    <!-- AI SYSTEM -->
-    <div id="ai-system">
-        <div class="ai-panel" id="aiPanel">
-            <div class="chat-head">
-                <div>
-                    <h4 style="font-size: 0.7rem;">ONYX-AI INTEL v7.4</h4>
-                    <span style="font-size: 0.6rem; color: var(--primary);"><i class="fas fa-circle"></i> SYSTEM ONLINE</span>
-                </div>
-                <i class="fas fa-times" onclick="toggleAI()" style="cursor:pointer;"></i>
-            </div>
-            <div class="chat-body" id="chatBox">
-                <div class="msg bot">TITAN ONYX begrüßt Sie. Ich bin Ihre direkte Verbindung zur technischen Division. Haben Sie Fragen zu Preisen, Sicherheitsprotokollen oder technischer Implementierung?</div>
-            </div>
-            <div class="chat-footer">
-                <input type="text" id="userInput" placeholder="Anfrage eingeben..." onkeypress="if(event.key==='Enter') titanAPI()">
-                <button onclick="titanAPI()"><i class="fas fa-paper-plane"></i></button>
-            </div>
-        </div>
-        <div class="ai-btn" onclick="toggleAI()">
-            <i class="fas fa-robot" style="font-size: 2.2rem; color: black;"></i>
-        </div>
-    </div>
+<div class="price-output">
+Gesamtpreis: <span id="totalPrice">160€</span>
+</div>
+</div>
+</section>
 
-    <script>
-        // ---------------------------------------------------------
-        // PARTICLE ENGINE: QUANTUM SPARKS
-        // ---------------------------------------------------------
-        const canvas = document.getElementById('spark-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+<section id="roi" class="roi">
+<h2 style="text-align:center;margin-bottom:60px">AGENTUR ROI RECHNER</h2>
+<div class="roi-box">
+<label>Event Budget (€)</label>
+<input type="number" id="budget" value="5000">
 
-        function initCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+<label>Funken-Effekt Upsell (%)</label>
+<input type="number" id="upsell" value="15">
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = canvas.height + 10;
-                this.size = Math.random() * 2 + 1;
-                this.speedY = Math.random() * -3 - 1;
-                this.speedX = Math.random() * 2 - 1;
-                this.alpha = 1;
-            }
-            update() {
-                this.y += this.speedY;
-                this.x += this.speedX;
-                this.alpha -= 0.005;
-            }
-            draw() {
-                ctx.fillStyle = `rgba(212, 175, 55, ${this.alpha})`;
-                ctx.fillRect(this.x, this.y, this.size, this.size);
-            }
-        }
+<div class="roi-result">
+Mehrumsatz: <span id="roiOutput">750€</span>
+</div>
+</div>
+</section>
 
-        function handleParticles() {
-            if(particles.length < 100) particles.push(new Particle());
-            for(let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-                if(particles[i].alpha <= 0) {
-                    particles.splice(i, 1);
-                    i--;
-                }
-            }
-        }
+<section class="cta" id="contact">
+<h2 style="margin-bottom:40px">Bereit für TITAN ONYX?</h2>
+<button onclick="openBooking()">Jetzt Projekt starten</button>
+</section>
 
-        function animate() {
-            ctx.clearRect(0,0, canvas.width, canvas.height);
-            handleParticles();
-            requestAnimationFrame(animate);
-        }
+<footer>
+© 2026 TITAN ONYX Effects Division
+</footer>
 
-        window.addEventListener('resize', initCanvas);
-        initCanvas();
-        animate();
+<script>
 
-        // ---------------------------------------------------------
-        // UI CORE LOGIC
-        // ---------------------------------------------------------
-        const dot = document.getElementById('cursor-main');
-        const follower = document.getElementById('cursor-follower');
+/* NAV SCROLL */
+window.addEventListener("scroll",()=>{
+document.getElementById("navbar")
+.classList.toggle("scrolled",window.scrollY>50)
+})
 
-        document.addEventListener('mousemove', (e) => {
-            dot.style.left = e.clientX + 'px';
-            dot.style.top = e.clientY + 'px';
-            follower.style.left = e.clientX - 20 + 'px';
-            follower.style.top = e.clientY - 20 + 'px';
-        });
+/* KPI ANIMATION */
+function animateValue(id,end){
+let obj=document.getElementById(id)
+let start=0
+let duration=2000
+let step=end/100
+let interval=setInterval(()=>{
+start+=step
+if(start>=end){
+start=end
+clearInterval(interval)
+}
+obj.innerText=Math.floor(start)
+},duration/100)
+}
 
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('main-nav');
-            if(window.scrollY > 50) nav.classList.add('active');
-            else nav.classList.remove('active');
-        });
+animateValue("stat1",1200)
+animateValue("stat2",28)
+animateValue("stat3",12)
 
-        function toggleAI() {
-            const p = document.getElementById('aiPanel');
-            p.style.display = p.style.display === 'flex' ? 'none' : 'flex';
-        }
+/* PRICE CALC */
+const device=document.getElementById("deviceCount")
+const duration=document.getElementById("duration")
+const output=document.getElementById("totalPrice")
 
-        // ---------------------------------------------------------
-        // ADVANCED AI ENGINE (ChatGPT Integration)
-        // ---------------------------------------------------------
-        const API_KEY = "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";
-        let history = [];
+function calculate(){
+const base=device.value*80
+const extra=duration.value*2
+output.innerText=(base+extra)+"€"
+}
+device.oninput=calculate
+duration.oninput=calculate
+calculate()
 
-        async function titanAPI() {
-            const input = document.getElementById('userInput');
-            const box = document.getElementById('chatBox');
-            const text = input.value;
-            if(!text) return;
+/* ROI CALC */
+const budget=document.getElementById("budget")
+const upsell=document.getElementById("upsell")
+const roiOutput=document.getElementById("roiOutput")
 
-            box.innerHTML += `<div class="msg user">${text}</div>`;
-            input.value = "";
-            box.scrollTop = box.scrollHeight;
+function calcROI(){
+roiOutput.innerText=((budget.value*upsell.value)/100)+"€"
+}
+budget.oninput=calcROI
+upsell.oninput=calcROI
+calcROI()
 
-            const loaderId = "id-" + Date.now();
-            box.innerHTML += `<div class="msg bot" id="${loaderId}">... Analysiere Anfrage ...</div>`;
-            
-            history.push({ role: "user", content: text });
+/* BOOKING */
+function openBooking(){
+alert("Booking-System wird mit Cloudflare Worker + Stripe verbunden.")
+}
 
-            try {
-                const response = await fetch("https://api.openai.com/v1/chat/completions", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${API_KEY}`
-                    },
-                    body: JSON.stringify({
-                        model: "gpt-4o-mini",
-                        messages: [
-                            { role: "system", content: "Du bist ONYX-AI, die Elite-KI von TITAN ONYX. Du verkaufst Kaltfunken-Maschinen der Luxusklasse. Preise: 1x 90€, 2x 160€, 4x 320€. Technik: Absolut kalt, indoor sicher, rauchfrei, keine Genehmigung nötig. Sei extrem professionell, technokratisch und lösungsorientiert. Antworte in Deutsch." },
-                            ...history
-                        ]
-                    })
-                });
+</script>
 
-                const data = await response.json();
-                const reply = data.choices[0].message.content;
-                document.getElementById(loaderId).innerText = reply;
-                history.push({ role: "assistant", content: reply });
-
-            } catch (err) {
-                document.getElementById(loaderId).innerText = "KRITISCHER FEHLER: Verbindung zum TITAN-Server unterbrochen. API Key ungültig oder gesperrt.";
-            }
-            box.scrollTop = box.scrollHeight;
-        }
-    </script>
 </body>
 </html>
-<!-- =======================================================
-         TEIL 2: ENTERPRISE CONTENT & LEGAL FRAMEWORK
-         Lines: +2500 Logic & Content
-         ======================================================= -->
-
-    <style>
-        /* ZUSÄTZLICHE STYLES FÜR TEIL 2 */
-        .specs-detail { background: #000; padding: 100px var(--fluid-100); }
-        .specs-table { width: 100%; border-collapse: collapse; margin-top: 50px; font-family: var(--font-mono); font-size: 0.8rem; }
-        .specs-table th { text-align: left; padding: 20px; border-bottom: 2px solid var(--primary); color: var(--primary); text-transform: uppercase; }
-        .specs-table td { padding: 20px; border-bottom: 1px solid #111; color: var(--text-dim); }
-        .specs-table tr:hover td { color: white; background: rgba(255,255,255,0.02); }
-
-        .case-studies { padding: 150px var(--fluid-100); }
-        .case-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
-        .case-item { position: relative; height: 500px; overflow: hidden; border-radius: 20px; border: 1px solid #222; }
-        .case-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.8s; }
-        .case-item:hover .case-img { filter: grayscale(0%); transform: scale(1.1); }
-        .case-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px; background: linear-gradient(transparent, black); }
-
-        .faq-section { padding: 150px var(--fluid-100); background: var(--surface); }
-        .faq-container { max-width: 1000px; margin: 0 auto; }
-        .faq-item { border-bottom: 1px solid #222; padding: 30px 0; cursor: pointer; transition: 0.3s; }
-        .faq-item:hover { padding-left: 20px; border-color: var(--primary); }
-        .faq-question { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-head); font-size: 1.1rem; }
-        .faq-answer { display: none; margin-top: 20px; color: var(--text-dim); line-height: 1.8; font-size: 0.95rem; }
-
-        .legal-block { padding: 100px var(--fluid-100); background: #050505; color: #444; font-size: 0.75rem; line-height: 1.6; text-align: justify; }
-        .legal-block h2 { color: #888; font-size: 1.2rem; margin-bottom: 30px; }
-        .legal-scroll { height: 400px; overflow-y: scroll; padding: 40px; border: 1px solid #111; background: #030303; scrollbar-width: thin; }
-    </style>
-
-    <!-- SECTION: TECH DEEP DIVE -->
-    <section id="specs-detail" class="specs-detail">
-        <span class="hero-tag">// TECHNICAL ARCHITECTURE</span>
-        <h2 style="font-size: 3rem;">DATA SHEET V7.4</h2>
-        <table class="specs-table">
-            <thead>
-                <tr>
-                    <th>Parameter</th>
-                    <th>Spezifikation TITAN ONYX</th>
-                    <th>DMX Channel Mapping</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Effekthöhe</td>
-                    <td>1.0m - 5.5m (Einstellbar via Digital-Encoder)</td>
-                    <td>CH 1: 0-255 (Höhensteuerung)</td>
-                </tr>
-                <tr>
-                    <td>Aufheizzeit</td>
-                    <td>&lt; 480 Sekunden (High-Efficiency Modus)</td>
-                    <td>CH 2: 0-10 (Pre-Heat Off), 11-255 (On)</td>
-                </tr>
-                <tr>
-                    <td>Granulatverbrauch</td>
-                    <td>ca. 20g / Minute (Vollast)</td>
-                    <td>CH 3: Partikel-Dichte (0-100%)</td>
-                </tr>
-                <tr>
-                    <td>Kühlung</td>
-                    <td>Dual-Fan Axial System (Active Temperature Control)</td>
-                    <td>CH 4: Fan Speed (Auto/Manual)</td>
-                </tr>
-                <tr>
-                    <td>Sicherheitsschaltkreis</td>
-                    <td>Neigungssensor (&gt;45° Auto-Off), Thermoschutz</td>
-                    <td>CH 5: Emergency Kill-Switch</td>
-                </tr>
-                <tr>
-                    <td>Gehäusematerial</td>
-                    <td>V0-Rated ABS & Steel (Feuerfest)</td>
-                    <td>Status-LED: Feedback-Loop</td>
-                </tr>
-                <tr>
-                    <td>Stromaufnahme</td>
-                    <td>650W (Max Peak während Aufheizphase)</td>
-                    <td>PowerCon True1 (In/Out)</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-
-    <!-- SECTION: CASE STUDIES -->
-    <section class="case-studies">
-        <span class="hero-tag">// GLOBAL DEPLOYMENT</span>
-        <h2 style="margin-bottom: 60px;">EINSATZBEREICHE</h2>
-        <div class="case-grid">
-            <div class="case-item">
-                <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=1000" class="case-img">
-                <div class="case-overlay">
-                    <h3 class="titan-font">FESTIVAL MAINSTAGE</h3>
-                    <p>Synchronisierte 12-Unit-Matrix für Open-Air Events.</p>
-                </div>
-            </div>
-            <div class="case-item">
-                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000" class="case-img">
-                <div class="case-overlay">
-                    <h3 class="titan-font">PREMIUM WEDDINGS</h3>
-                    <p>Eleganter Hochzeitstanz ohne Brandgefahr für das Brautkleid.</p>
-                </div>
-            </div>
-            <div class="case-item">
-                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1000" class="case-img">
-                <div class="case-overlay">
-                    <h3 class="titan-font">CORPORATE LAUNCH</h3>
-                    <p>Produktpräsentationen mit dramatischem Akzent.</p>
-                </div>
-            </div>
-            <div class="case-item">
-                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=1000" class="case-img">
-                <div class="case-overlay">
-                    <h3 class="titan-font">TV & BROADCAST</h3>
-                    <p>Rauchfreie Effekte für Studio-Produktionen.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION: MASSIVE FAQ -->
-    <section id="safety" class="faq-section">
-        <span class="hero-tag">// KNOWLEDGE BASE</span>
-        <h2 class="section-title">SICHERHEIT & LOGISTIK</h2>
-        <div class="faq-container">
-            <div class="faq-item" onclick="toggleFaqDetail(this)">
-                <div class="faq-question">
-                    <span>Ist eine Genehmigung durch die Feuerwehr erforderlich?</span>
-                    <i class="fas fa-plus"></i>
-                </div>
-                <div class="faq-answer">
-                    Nein. Unsere Kaltfunken-Maschinen nutzen keine pyrotechnischen Sätze im Sinne des SprengG. Da keine Verbrennung stattfindet und keine Hitzeentwicklung (Funken &lt; 60°C) vorliegt, fallen sie unter die Kategorie der elektrischen Show-Effekte. Eine Anmeldung beim Ordnungsamt oder der Feuerwehr ist in Deutschland (VStättVO) nicht erforderlich.
-                </div>
-            </div>
-            <div class="faq-item" onclick="toggleFaqDetail(this)">
-                <div class="faq-question">
-                    <span>Funktionieren die Maschinen bei optischen Rauchmeldern?</span>
-                    <i class="fas fa-plus"></i>
-                </div>
-                <div class="faq-answer">
-                    Ja, sie funktionieren in fast allen Locations. Unsere Maschinen sind nahezu rauchfrei. Dennoch ist zu beachten, dass bei massiver Nutzung über einen langen Zeitraum eine minimale Partikelkonzentration in der Luft entstehen kann, die extrem empfindliche optische Sensoren triggern könnte. Wir empfehlen einen Mindestabstand von 3m zu Brandmeldern.
-                </div>
-            </div>
-            <div class="faq-item" onclick="toggleFaqDetail(this)">
-                <div class="faq-question">
-                    <span>Wie funktioniert der Versand und die Rückgabe?</span>
-                    <i class="fas fa-plus"></i>
-                </div>
-                <div class="faq-answer">
-                    Der Versand erfolgt in stoßfesten Flightcases via UPS oder DHL Express. Nach dem Event nutzen Sie das beiliegende Rücksendelabel. Die Maschinen müssen lediglich mit der eingebauten "Clean"-Funktion kurz von Restpulver befreit werden. Den Rest der professionellen Reinigung übernehmen wir.
-                </div>
-            </div>
-            <div class="faq-item" onclick="toggleFaqDetail(this)">
-                <div class="faq-question">
-                    <span>Kann das Granulat explodieren oder brennen?</span>
-                    <i class="fas fa-plus"></i>
-                </div>
-                <div class="faq-answer">
-                    Nein. Das Titan-Granulat ist bei Raumtemperatur und unter normalen Lagerbedingungen völlig inert. Es benötigt die spezifische physikalische Anregung innerhalb der TITAN-Kammer, um den Leuchteffekt zu erzeugen. Es ist nicht brennbar und unterliegt nicht der Gefahrgutverordnung.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION: LEGAL FRAMEWORK (Code Booster) -->
-    <section class="legal-block">
-        <h2 class="titan-font">RECHTLICHER RAHMEN & AGB</h2>
-        <div class="legal-scroll">
-            <h3>1. Geltungsbereich</h3>
-            <p>Die nachfolgenden Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Verträge über die Vermietung von Kaltfunken-Maschinen und Zubehör zwischen der TITAN ONYX Effects Division und dem Kunden. Abweichende Bedingungen des Mieters werden nicht anerkannt...</p>
-            
-            <h3>2. Mietgegenstand & Nutzung</h3>
-            <p>Der Vermieter verpflichtet sich, dem Mieter die im Mietvertrag aufgeführten Geräte für die vereinbarte Zeit zu überlassen. Der Mieter ist verpflichtet, die Geräte pfleglich zu behandeln und ausschließlich mit dem vom Vermieter gelieferten Original-Granulat zu betreiben. Die Verwendung von Fremdgranulat führt zum sofortigen Erlöschen der Haftung des Vermieters und verpflichtet den Mieter zum vollen Schadenersatz bei Maschinen-Defekten...</p>
-            
-            <h3>3. Gefahrübergang & Versicherung</h3>
-            <p>Die Gefahr des zufälligen Untergangs oder der Verschlechterung geht mit der Übergabe der Geräte an das Transportunternehmen auf den Mieter über. Der Mieter haftet für alle Schäden an den Mietgeräten während der Mietzeit, einschließlich Diebstahl, Vandalismus und Fehlbedienung. Eine Elektronikversicherung wird empfohlen...</p>
-            
-            <h3>4. Haftungsausschluss</h3>
-            <p>TITAN ONYX haftet nicht für Folgeschäden, die durch den Ausfall der Geräte entstehen könnten. Insbesondere wird keine Haftung für entgangene Gewinne bei Veranstaltungen übernommen. Die Geräte werden vor jedem Versand auf volle Funktionsfähigkeit geprüft...</p>
-            
-            <h3>5. Datenschutz (DSGVO)</h3>
-            <p>Wir verarbeiten personenbezogene Daten des Mieters zur Abwicklung des Mietvertrages gemäß Art. 6 Abs. 1 lit. b DSGVO. Eine Weitergabe an Dritte erfolgt nur im Rahmen der logistischen Notwendigkeit (Versandunternehmen). Alle Daten werden nach Ablauf der gesetzlichen Aufbewahrungsfristen gelöscht...</p>
-            
-            <p><i>(Dies ist eine gekürzte Fassung zur Demonstration der Struktur. In einem echten Enterprise-Szenario würden hier hunderte Zeilen spezifischer Klauseln folgen.)</i></p>
-        </div>
-    </section>
-
-    <script>
-        // ZUSÄTZLICHE LOGIK FÜR TEIL 2
-        function toggleFaqDetail(element) {
-            const answer = element.querySelector('.faq-answer');
-            const icon = element.querySelector('i');
-            const isOpen = answer.style.display === 'block';
-            
-            // Close all others
-            document.querySelectorAll('.faq-answer').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('.faq-item i').forEach(el => el.className = 'fas fa-plus');
-
-            if(!isOpen) {
-                answer.style.display = 'block';
-                icon.className = 'fas fa-minus';
-            }
-        }
-
-        // AUTO-ANIMATE COUNTERS IN TABLES (Subtle Effect)
-        const tableCells = document.querySelectorAll('.specs-table td');
-        tableCells.forEach(cell => {
-            cell.addEventListener('mouseenter', () => {
-                cell.style.color = 'var(--primary)';
-                cell.style.transition = '0.2s';
-            });
-            cell.addEventListener('mouseleave', () => {
-                cell.style.color = 'var(--text-dim)';
-            });
-        });
-    </script>
-     <!-- =======================================================
-         TEIL 3: 3D VISUALIZATION, DASHBOARD & TECH-WIKI
-         Lines: +3000 Logic & Interactive Modules
-         ======================================================= -->
-
-    <!-- External Script for 3D Engine -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-    <style>
-        /* DESIGN SYSTEM ERWEITERUNG FÜR TEIL 3 */
-        .titan-3d-section { 
-            height: 100vh; 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            background: radial-gradient(circle at center, #111, #000);
-            border-bottom: 1px solid var(--border);
-        }
-        #canvas-3d-container { width: 100%; height: 100%; cursor: grab; }
-        .canvas-label { 
-            padding: 100px; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-        }
-
-        .dashboard-mockup {
-            padding: 150px var(--fluid-100);
-            background: #000;
-        }
-        .dash-window {
-            background: #0d0d0d;
-            border: 1px solid #222;
-            border-radius: 20px;
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            height: 600px;
-            overflow: hidden;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
-        }
-        .dash-sidebar { background: #080808; padding: 40px; border-right: 1px solid #1a1a1a; }
-        .dash-nav-item { padding: 15px 0; color: #555; font-family: var(--font-mono); font-size: 0.7rem; cursor: pointer; transition: 0.3s; }
-        .dash-nav-item:hover, .dash-nav-item.active { color: var(--primary); }
-        .dash-main { padding: 50px; position: relative; }
-        .status-pill { background: rgba(52, 199, 89, 0.1); color: #34C759; padding: 5px 15px; border-radius: 20px; font-size: 0.7rem; }
-
-        .wiki-section { padding: 150px var(--fluid-100); background: #050505; }
-        .wiki-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .wiki-article { background: #0a0a0a; padding: 40px; border: 1px solid #111; transition: 0.3s; }
-        .wiki-article:hover { border-color: var(--primary); }
-        .wiki-tag { font-family: var(--font-mono); font-size: 0.6rem; color: var(--primary); margin-bottom: 20px; display: block; }
-
-        /* Mobile Adjustments */
-        @media (max-width: 1024px) {
-            .titan-3d-section { grid-template-columns: 1fr; height: auto; }
-            #canvas-3d-container { height: 500px; }
-            .dash-window { grid-template-columns: 1fr; height: auto; }
-            .dash-sidebar { display: none; }
-        }
-    </style>
-
-    <!-- 3D INSPECTOR -->
-    <section id="inspector" class="titan-3d-section">
-        <div id="canvas-3d-container"></div>
-        <div class="canvas-label">
-            <span class="hero-tag">// VIRTUAL INSPECTION</span>
-            <h2 style="font-size: 3.5rem; margin-bottom: 30px;">ONYX-V3 IN 3D EXPLOREN</h2>
-            <p style="color: var(--text-dim); margin-bottom: 40px;">Interaktives 3D-Rendering unserer Flaggschiff-Maschine. Prüfen Sie die Verarbeitungsqualität, das Anschluss-Panel und das aerodynamische Kühlsystem aus jedem Winkel.</p>
-            <div style="display: flex; gap: 20px;">
-                <div class="stat-item">
-                    <h5 style="color: var(--primary);">4K TEXTURE</h5>
-                    <p style="font-size: 0.7rem;">PBR Materialien</p>
-                </div>
-                <div class="stat-item">
-                    <h5 style="color: var(--primary);">REALTIME</h5>
-                    <p style="font-size: 0.7rem;">Raytraced Lights</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- DASHBOARD PREVIEW -->
-    <section class="dashboard-mockup">
-        <span class="hero-tag">// CLIENT ECOSYSTEM</span>
-        <h2 style="margin-bottom: 60px;">IHR EVENT-DASHBOARD</h2>
-        <div class="dash-window">
-            <div class="dash-sidebar">
-                <div class="dash-nav-item active">OVERVIEW</div>
-                <div class="dash-nav-item">MY DEVICES</div>
-                <div class="dash-nav-item">DMX CONFIGURATOR</div>
-                <div class="dash-nav-item">MAINTENANCE</div>
-                <div class="dash-nav-item">BILLING</div>
-                <div style="margin-top: 200px;" class="dash-nav-item">LOGOUT</div>
-            </div>
-            <div class="dash-main">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <h3 class="titan-font">AKTIVE MIETE #8821</h3>
-                    <span class="status-pill">CONNECTED / ONLINE</span>
-                </div>
-                <div style="margin-top: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-                    <div style="background: #111; padding: 30px; border-radius: 15px;">
-                        <span class="hero-tag">BATTERY / POWER</span>
-                        <div style="font-size: 2rem; font-weight: 900; margin-top: 10px;">230V / 50Hz</div>
-                        <p style="color: #444; font-size: 0.7rem;">Stable Power Supply detected</p>
-                    </div>
-                    <div style="background: #111; padding: 30px; border-radius: 15px;">
-                        <span class="hero-tag">TEMPERATURE</span>
-                        <div style="font-size: 2rem; font-weight: 900; margin-top: 10px; color: var(--primary);">580°C</div>
-                        <p style="color: #444; font-size: 0.7rem;">Internal Core Heating ready</p>
-                    </div>
-                </div>
-                <div style="margin-top: 30px; background: #111; padding: 30px; border-radius: 15px;">
-                    <span class="hero-tag">GRANULATE LEVEL</span>
-                    <div style="width: 100%; height: 10px; background: #222; border-radius: 5px; margin-top: 20px;">
-                        <div style="width: 75%; height: 100%; background: var(--primary); border-radius: 5px; box-shadow: 0 0 10px var(--primary);"></div>
-                    </div>
-                    <p style="margin-top: 10px; font-size: 0.7rem; color: var(--text-dim);">75% Remaining (approx. 18 minutes effect time)</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TECH WIKI (MASSIVE CONTENT BOOSTER) -->
-    <section class="wiki-section">
-        <span class="hero-tag">// RESOURCE CENTER</span>
-        <h2 class="section-title">TECHNISCHES WIKI & DOKUMENTATION</h2>
-        <div class="wiki-grid">
-            <!-- Article 1 -->
-            <div class="wiki-article">
-                <span class="wiki-tag">PHYSICS</span>
-                <h4 class="titan-font">THERMODYNAMIK DER KALTFUNKEN</h4>
-                <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-dim);">Erfahren Sie, wie die Titan-Legierung durch magnetische Induktion angeregt wird, um Photonen zu emittieren, ohne eine exotherme Verbrennungsreaktion auszulösen...</p>
-            </div>
-            <!-- Article 2 -->
-            <div class="wiki-article">
-                <span class="wiki-tag">CHEMISTRY</span>
-                <h4 class="titan-font">TITAN-GRANULAT ZUSAMMENSETZUNG</h4>
-                <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-dim);">Eine detaillierte Analyse der Partikelgröße (200-300μm) und warum diese spezifische Reinheit für rückstandsfreie Fontänen entscheidend ist...</p>
-            </div>
-            <!-- Article 3 -->
-            <div class="wiki-article">
-                <span class="wiki-tag">PROTOCOLS</span>
-                <h4 class="titan-font">DMX512-A & RDM IMPLEMENTIERUNG</h4>
-                <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-dim);">Schritt-für-Schritt Anleitung zur Integration in GrandMA3 oder Avolites Systeme inklusive Profile-Download und Bitrate-Optimierung...</p>
-            </div>
-            <!-- Article 4 -->
-            <div class="wiki-article">
-                <span class="wiki-tag">SAFETY</span>
-                <h4 class="titan-font">BRANDSCHUTZ-GUTACHTEN VSTÄTTVO</h4>
-                <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-dim);">Download der offiziellen Zertifikate für Brandschutzbeauftragte. Warum die ONYX-Serie als elektrisches Betriebsmittel gilt...</p>
-            </div>
-            <!-- Article 5 -->
-            <div class="wiki-article">
-                <span class="wiki-tag">MAINTENANCE</span>
-                <h4 class="titan-font">AUTOMATISIERTE REINIGUNGSZYKLEN</h4>
-                <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-dim);">Warum das Ausleeren der Heizkammer nach jedem Einsatz die Lebensdauer der Heizelemente um 400% steigert...</p>
-            </div>
-            <!-- Article 6 -->
-            <div class="wiki-article">
-                <span class="wiki-tag">LOGISTICS</span>
-                <h4 class="titan-font">EXPRESS-VERSAND & FLIGHTCASE-HANDLING</h4>
-                <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-dim);">Die Schock-Absorptions-Parameter unserer spezialgefertigten Onyx-Cases und internationale Zollbestimmungen...</p>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        // ---------------------------------------------------------
-        // THREE.JS 3D ENGINE: ONYX V3 MODEL
-        // ---------------------------------------------------------
-        let scene, camera, renderer, machine;
-
-        function init3D() {
-            const container = document.getElementById('canvas-3d-container');
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-            
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            container.appendChild(renderer.domElement);
-
-            // Light
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-            scene.add(ambientLight);
-            const pointLight = new THREE.PointLight(0xd4af37, 2);
-            pointLight.position.set(5, 5, 5);
-            scene.add(pointLight);
-
-            // Create a Cube to represent the machine (Geometry Proxy)
-            const geometry = new THREE.BoxGeometry(2, 2.5, 2);
-            const material = new THREE.MeshStandardMaterial({ 
-                color: 0x111111, 
-                metalness: 0.8, 
-                roughness: 0.2,
-                emissive: 0xd4af37,
-                emissiveIntensity: 0.05
-            });
-            machine = new THREE.Mesh(geometry, material);
-            scene.add(machine);
-
-            // Add Top Hole (Emitter)
-            const holeGeo = new THREE.CylinderGeometry(0.5, 0.5, 0.2, 32);
-            const holeMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
-            const hole = new THREE.Mesh(holeGeo, holeMat);
-            hole.position.y = 1.25;
-            machine.add(hole);
-
-            camera.position.z = 7;
-            camera.position.y = 2;
-            camera.lookAt(0,0,0);
-
-            animate3D();
-        }
-
-        function animate3D() {
-            requestAnimationFrame(animate3D);
-            if(machine) {
-                machine.rotation.y += 0.005;
-            }
-            renderer.render(scene, camera);
-        }
-
-        // Handle Resize
-        window.addEventListener('resize', () => {
-            const container = document.getElementById('canvas-3d-container');
-            if(camera && renderer) {
-                camera.aspect = container.clientWidth / container.clientHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(container.clientWidth, container.clientHeight);
-            }
-        });
-
-        // Initialize 3D when scrolled into view
-        const observer3D = new IntersectionObserver((entries) => {
-            if(entries[0].isIntersecting) {
-                if(!renderer) init3D();
-            }
-        }, { threshold: 0.1 });
-        observer3D.observe(document.getElementById('inspector'));
-
-    </script>
