@@ -3,27 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TITAN ONYX v9.0 | Precision Atmosphere Systems</title>
+<title>TITAN ONYX | Global Effects Architecture</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;800&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
 
 /* ===============================
-   TITAN ONYX v9 DESIGN SYSTEM
+   TITAN ONYX v10 ULTRA SYSTEM
 ================================= */
 
 :root{
 --gold:#D4AF37;
---bg:#050505;
---surface:#0c0c0c;
+--bg:#040404;
+--surface:#0b0b0b;
+--muted:#777;
 --text:#f5f5f5;
---muted:#888;
---radius:20px;
---transition:0.4s ease;
+--radius:24px;
+--transition:0.4s cubic-bezier(.2,.8,.2,1);
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
+*{margin:0;padding:0;box-sizing:border-box}
 body{
 background:var(--bg);
 color:var(--text);
@@ -37,12 +37,25 @@ text-transform:uppercase;
 letter-spacing:-1px;
 }
 
-section{
-padding:120px 8vw;
+/* ===============================
+   BACKGROUND GRID ENGINE
+================================= */
+
+.bg-grid{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:
+linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+background-size:50px 50px;
+z-index:-2;
 }
 
 /* ===============================
-   NAVIGATION
+   NAV
 ================================= */
 
 nav{
@@ -50,43 +63,37 @@ position:fixed;
 width:100%;
 top:0;
 left:0;
-padding:20px 8vw;
 display:flex;
 justify-content:space-between;
-align-items:center;
-background:rgba(0,0,0,0.6);
+padding:25px 8vw;
+background:rgba(0,0,0,0.5);
 backdrop-filter:blur(10px);
 z-index:1000;
 transition:var(--transition);
 }
 
 nav.scrolled{
-padding:10px 8vw;
+padding:15px 8vw;
 background:rgba(0,0,0,0.9);
-}
-
-nav a{
-color:var(--muted);
-text-decoration:none;
-margin-left:40px;
-font-size:0.8rem;
-letter-spacing:1px;
-transition:var(--transition);
-}
-
-nav a:hover{
-color:var(--gold);
 }
 
 .logo{
 font-family:Unbounded;
 font-weight:800;
-font-size:1.2rem;
 }
 
-.logo span{
-color:var(--gold);
+.logo span{color:var(--gold)}
+
+nav a{
+color:var(--muted);
+margin-left:40px;
+text-decoration:none;
+font-size:0.8rem;
+letter-spacing:1px;
+transition:var(--transition);
 }
+
+nav a:hover{color:var(--gold)}
 
 /* ===============================
    HERO
@@ -97,88 +104,80 @@ height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
+padding:0 8vw;
+position:relative;
 }
 
 .hero h1{
-font-size:clamp(3rem,10vw,8rem);
-margin-bottom:40px;
+font-size:clamp(4rem,12vw,10rem);
+line-height:0.9;
+}
+
+.hero h1 span{
+color:var(--gold);
 }
 
 .hero p{
 max-width:600px;
+margin-top:40px;
 color:var(--muted);
 font-size:1.2rem;
-line-height:1.6;
 }
 
 /* ===============================
-   STATS
+   LIVE REVENUE ENGINE
 ================================= */
 
-.stats{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:40px;
-text-align:center;
-}
-
-.stat h2{
-font-size:3rem;
-color:var(--gold);
-}
-
-.stat p{
-color:var(--muted);
-margin-top:10px;
-}
-
-/* ===============================
-   CONFIGURATOR
-================================= */
-
-.configurator{
+.revenue{
+padding:140px 8vw;
 background:var(--surface);
+}
+
+.rev-box{
+background:#000;
 border-radius:var(--radius);
 padding:60px;
 display:grid;
 gap:30px;
-max-width:800px;
+max-width:900px;
 margin:auto;
 }
 
-input[type=range]{
-width:100%;
-}
-
-.price-output{
-font-size:2rem;
-font-weight:700;
+.rev-result{
+font-size:3rem;
 color:var(--gold);
 text-align:center;
 }
 
 /* ===============================
-   ROI CALCULATOR
+   DASHBOARD SIMULATION
 ================================= */
 
-.roi{
+.dashboard{
+padding:140px 8vw;
 background:#000;
 }
 
-.roi-box{
+.dash-box{
 background:var(--surface);
-padding:50px;
 border-radius:var(--radius);
-max-width:800px;
-margin:auto;
+padding:60px;
 display:grid;
-gap:20px;
+gap:40px;
 }
 
-.roi-result{
-font-size:2rem;
-color:var(--gold);
-text-align:center;
+.progress-bar{
+height:12px;
+background:#222;
+border-radius:6px;
+overflow:hidden;
+}
+
+.progress-bar div{
+height:100%;
+background:var(--gold);
+width:60%;
+transition:width 1s ease;
 }
 
 /* ===============================
@@ -186,14 +185,15 @@ text-align:center;
 ================================= */
 
 .cta{
+padding:140px 8vw;
 text-align:center;
 background:linear-gradient(180deg,#111,#000);
 }
 
 .cta button{
 background:var(--gold);
+padding:20px 60px;
 border:none;
-padding:20px 50px;
 border-radius:50px;
 font-weight:700;
 cursor:pointer;
@@ -209,20 +209,11 @@ transform:scale(1.05);
 ================================= */
 
 footer{
-padding:60px 8vw;
+padding:60px;
 text-align:center;
 color:var(--muted);
 font-size:0.8rem;
 border-top:1px solid #111;
-}
-
-/* ===============================
-   RESPONSIVE
-================================= */
-
-@media(max-width:768px){
-section{padding:100px 6vw}
-nav a{margin-left:20px}
 }
 
 </style>
@@ -230,133 +221,94 @@ nav a{margin-left:20px}
 
 <body>
 
-<nav id="navbar">
+<div class="bg-grid"></div>
+
+<nav id="nav">
 <div class="logo">TITAN<span>ONYX</span></div>
 <div>
-<a href="#tech">Technologie</a>
-<a href="#config">Konfigurator</a>
-<a href="#roi">ROI</a>
-<a href="#contact">Kontakt</a>
+<a href="#revenue">Revenue Engine</a>
+<a href="#dashboard">Live System</a>
+<a href="#contact">Start</a>
 </div>
 </nav>
 
 <section class="hero">
-<h1>PRECISION<br><span style="color:var(--gold)">ATMOSPHERE</span></h1>
-<p>Die nächste Generation der Kaltfunken-Technologie für Premium Events, Luxus-Hochzeiten und Corporate Launches weltweit.</p>
+<h1>PRECISION<br><span>DOMINATION</span></h1>
+<p>Die globale Infrastruktur für Premium-Kaltfunken-Systeme. Skalierbar. Intelligent. Verkauft für Sie.</p>
 </section>
 
-<section class="stats">
-<div class="stat">
-<h2 id="stat1">0</h2>
-<p>Installationen</p>
-</div>
-<div class="stat">
-<h2 id="stat2">0</h2>
-<p>Länder</p>
-</div>
-<div class="stat">
-<h2 id="stat3">0</h2>
-<p>Zertifizierungen</p>
-</div>
-</section>
+<section id="revenue" class="revenue">
+<h2 style="text-align:center;margin-bottom:60px">EVENT REVENUE SIMULATOR</h2>
+<div class="rev-box">
+<label>Events pro Monat</label>
+<input type="range" min="1" max="40" value="10" id="events">
 
-<section id="config">
-<h2 style="text-align:center;margin-bottom:60px">EVENT KONFIGURATOR</h2>
-<div class="configurator">
-<label>Geräte Anzahl</label>
-<input type="range" min="1" max="12" value="2" id="deviceCount">
+<label>Durchschnittlicher Umsatz pro Event (€)</label>
+<input type="number" id="eventValue" value="5000">
 
-<label>Einsatzdauer (Minuten)</label>
-<input type="range" min="1" max="60" value="10" id="duration">
-
-<div class="price-output">
-Gesamtpreis: <span id="totalPrice">160€</span>
-</div>
-</div>
-</section>
-
-<section id="roi" class="roi">
-<h2 style="text-align:center;margin-bottom:60px">AGENTUR ROI RECHNER</h2>
-<div class="roi-box">
-<label>Event Budget (€)</label>
-<input type="number" id="budget" value="5000">
-
-<label>Funken-Effekt Upsell (%)</label>
+<label>Upsell Rate (%)</label>
 <input type="number" id="upsell" value="15">
 
-<div class="roi-result">
-Mehrumsatz: <span id="roiOutput">750€</span>
+<div class="rev-result">
+Monatlicher Zusatzgewinn: <span id="revOutput">7500€</span>
+</div>
+</div>
+</section>
+
+<section id="dashboard" class="dashboard">
+<h2 style="text-align:center;margin-bottom:60px">LIVE SYSTEM SIMULATION</h2>
+<div class="dash-box">
+<div>
+<h3>Granulat Level</h3>
+<div class="progress-bar"><div id="granulat"></div></div>
+</div>
+<div>
+<h3>Temperatur Core</h3>
+<div class="progress-bar"><div id="temp" style="width:40%"></div></div>
 </div>
 </div>
 </section>
 
 <section class="cta" id="contact">
 <h2 style="margin-bottom:40px">Bereit für TITAN ONYX?</h2>
-<button onclick="openBooking()">Jetzt Projekt starten</button>
+<button onclick="alert('Cloudflare Worker + Stripe Integration aktivieren.')">Projekt starten</button>
 </section>
 
 <footer>
-© 2026 TITAN ONYX Effects Division
+© 2026 TITAN ONYX — Global Effects Architecture
 </footer>
 
 <script>
 
 /* NAV SCROLL */
 window.addEventListener("scroll",()=>{
-document.getElementById("navbar")
+document.getElementById("nav")
 .classList.toggle("scrolled",window.scrollY>50)
 })
 
-/* KPI ANIMATION */
-function animateValue(id,end){
-let obj=document.getElementById(id)
-let start=0
-let duration=2000
-let step=end/100
-let interval=setInterval(()=>{
-start+=step
-if(start>=end){
-start=end
-clearInterval(interval)
-}
-obj.innerText=Math.floor(start)
-},duration/100)
-}
-
-animateValue("stat1",1200)
-animateValue("stat2",28)
-animateValue("stat3",12)
-
-/* PRICE CALC */
-const device=document.getElementById("deviceCount")
-const duration=document.getElementById("duration")
-const output=document.getElementById("totalPrice")
-
-function calculate(){
-const base=device.value*80
-const extra=duration.value*2
-output.innerText=(base+extra)+"€"
-}
-device.oninput=calculate
-duration.oninput=calculate
-calculate()
-
-/* ROI CALC */
-const budget=document.getElementById("budget")
+/* REVENUE CALC */
+const events=document.getElementById("events")
+const eventValue=document.getElementById("eventValue")
 const upsell=document.getElementById("upsell")
-const roiOutput=document.getElementById("roiOutput")
+const revOutput=document.getElementById("revOutput")
 
-function calcROI(){
-roiOutput.innerText=((budget.value*upsell.value)/100)+"€"
+function calcRevenue(){
+let monthly=events.value*eventValue.value
+let profit=(monthly*upsell.value)/100
+revOutput.innerText=Math.floor(profit)+"€"
 }
-budget.oninput=calcROI
-upsell.oninput=calcROI
-calcROI()
+events.oninput=calcRevenue
+eventValue.oninput=calcRevenue
+upsell.oninput=calcRevenue
+calcRevenue()
 
-/* BOOKING */
-function openBooking(){
-alert("Booking-System wird mit Cloudflare Worker + Stripe verbunden.")
-}
+/* DASHBOARD ANIMATION */
+setInterval(()=>{
+let gran=document.getElementById("granulat")
+let temp=document.getElementById("temp")
+gran.style.width=Math.random()*100+"%"
+temp.style.width=Math.random()*100+"%"
+},3000)
 
 </script>
 
