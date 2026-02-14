@@ -1,219 +1,270 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="no-js">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TITAN ONYX | Global Effects Architecture</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="description" content="TITAN ONYX – Global Cold Spark Architecture. Enterprise Event Systems.">
 
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;800&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+<title>TITAN ONYX | Enterprise Spark Systems</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;900&family=Inter:wght@100;300;400;700;900&family=JetBrains+Mono:wght@100;400&display=swap" rel="stylesheet">
 
 <style>
 
-/* ===============================
-   TITAN ONYX v10 ULTRA SYSTEM
-================================= */
+/* ============================================================
+   TITAN ONYX DESIGN SYSTEM v11
+   Massive Enterprise Edition
+   ============================================================ */
 
 :root{
---gold:#D4AF37;
---bg:#040404;
---surface:#0b0b0b;
---muted:#777;
---text:#f5f5f5;
---radius:24px;
---transition:0.4s cubic-bezier(.2,.8,.2,1);
+--primary:#D4AF37;
+--primary-glow:rgba(212,175,55,0.4);
+--bg:#050505;
+--surface:#0A0A0A;
+--surface-2:#111;
+--text:#F5F5F5;
+--text-dim:#777;
+--error:#FF3B30;
+--success:#34C759;
+--font-main:'Inter',sans-serif;
+--font-head:'Unbounded',sans-serif;
+--font-mono:'JetBrains Mono',monospace;
+--transition-fast:0.3s ease;
+--transition-slow:0.8s cubic-bezier(.2,.8,.2,1);
+--radius:28px;
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-background:var(--bg);
-color:var(--text);
-font-family:Inter,sans-serif;
-overflow-x:hidden;
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;cursor:none;}
+html{background:var(--bg);color:var(--text);scroll-behavior:smooth;}
+body{font-family:var(--font-main);overflow-x:hidden;}
+
+/* CURSOR SYSTEM */
+#cursor-dot{
+width:8px;height:8px;
+background:var(--primary);
+border-radius:50%;
+position:fixed;z-index:9999;
+pointer-events:none;
+}
+#cursor-ring{
+width:40px;height:40px;
+border:1px solid var(--primary);
+border-radius:50%;
+position:fixed;z-index:9998;
+pointer-events:none;
 }
 
-h1,h2,h3{
-font-family:Unbounded,sans-serif;
-text-transform:uppercase;
-letter-spacing:-1px;
-}
-
-/* ===============================
-   BACKGROUND GRID ENGINE
-================================= */
-
+/* BACKGROUND GRID */
 .bg-grid{
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
+width:100%;height:100%;
 background:
 linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
 linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-background-size:50px 50px;
+background-size:60px 60px;
 z-index:-2;
 }
 
-/* ===============================
-   NAV
-================================= */
-
+/* NAVIGATION */
 nav{
 position:fixed;
-width:100%;
-top:0;
-left:0;
+top:0;width:100%;
 display:flex;
 justify-content:space-between;
-padding:25px 8vw;
-background:rgba(0,0,0,0.5);
-backdrop-filter:blur(10px);
+align-items:center;
+padding:40px 8vw;
 z-index:1000;
-transition:var(--transition);
+transition:var(--transition-slow);
 }
-
-nav.scrolled{
-padding:15px 8vw;
+nav.active{
+padding:20px 8vw;
 background:rgba(0,0,0,0.9);
+backdrop-filter:blur(20px);
+border-bottom:1px solid #111;
 }
-
 .logo{
-font-family:Unbounded;
-font-weight:800;
+font-family:var(--font-head);
+font-weight:900;
+font-size:1.4rem;
+letter-spacing:2px;
 }
-
-.logo span{color:var(--gold)}
-
-nav a{
-color:var(--muted);
-margin-left:40px;
+.logo span{color:var(--primary);}
+.nav-items{display:flex;gap:50px;}
+.nav-items a{
 text-decoration:none;
-font-size:0.8rem;
-letter-spacing:1px;
-transition:var(--transition);
+color:var(--text-dim);
+font-family:var(--font-mono);
+font-size:0.7rem;
+letter-spacing:2px;
+transition:var(--transition-fast);
+}
+.nav-items a:hover{
+color:var(--primary);
+transform:translateY(-2px);
 }
 
-nav a:hover{color:var(--gold)}
-
-/* ===============================
-   HERO
-================================= */
-
+/* HERO */
 .hero{
 height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
 padding:0 8vw;
-position:relative;
 }
-
-.hero h1{
-font-size:clamp(4rem,12vw,10rem);
-line-height:0.9;
+.hero-tag{
+font-family:var(--font-mono);
+color:var(--primary);
+margin-bottom:20px;
 }
-
-.hero h1 span{
-color:var(--gold);
+.hero-title{
+font-family:var(--font-head);
+font-size:clamp(3rem,15vw,14rem);
+font-weight:900;
+line-height:0.85;
 }
-
+.hero-title span{
+-webkit-text-stroke:1px white;
+color:transparent;
+}
 .hero p{
-max-width:600px;
 margin-top:40px;
-color:var(--muted);
+max-width:600px;
+color:var(--text-dim);
 font-size:1.2rem;
 }
 
-/* ===============================
-   LIVE REVENUE ENGINE
-================================= */
-
-.revenue{
-padding:140px 8vw;
-background:var(--surface);
+/* GRID SYSTEM */
+.grid{
+display:grid;
+grid-template-columns:repeat(12,1fr);
+gap:40px;
+padding:150px 8vw;
 }
-
-.rev-box{
-background:#000;
+.card{
+grid-column:span 4;
+background:var(--surface);
 border-radius:var(--radius);
 padding:60px;
-display:grid;
-gap:30px;
-max-width:900px;
-margin:auto;
+border:1px solid #111;
+transition:var(--transition-slow);
+position:relative;
+overflow:hidden;
+}
+.card:hover{
+border-color:var(--primary);
+transform:translateY(-10px);
+}
+.card h3{
+font-family:var(--font-head);
+margin-bottom:20px;
+}
+.card p{
+color:var(--text-dim);
+font-size:0.95rem;
+line-height:1.6;
 }
 
+/* ENTERPRISE STATS */
+.stats{
+padding:150px 8vw;
+background:#000;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:40px;
+text-align:center;
+}
+.stat-val{
+font-size:4rem;
+font-family:var(--font-head);
+color:var(--primary);
+}
+.stat-label{
+margin-top:10px;
+font-size:0.8rem;
+color:var(--text-dim);
+}
+
+/* REVENUE ENGINE */
+.revenue{
+padding:150px 8vw;
+background:var(--surface-2);
+}
+.rev-box{
+max-width:900px;
+margin:auto;
+display:grid;
+gap:30px;
+}
 .rev-result{
 font-size:3rem;
-color:var(--gold);
+font-family:var(--font-head);
+color:var(--primary);
 text-align:center;
 }
 
-/* ===============================
-   DASHBOARD SIMULATION
-================================= */
-
+/* DASHBOARD MOCK */
 .dashboard{
-padding:140px 8vw;
+padding:150px 8vw;
 background:#000;
 }
-
-.dash-box{
+.dash-window{
 background:var(--surface);
 border-radius:var(--radius);
 padding:60px;
 display:grid;
+grid-template-columns:1fr 1fr;
 gap:40px;
 }
-
-.progress-bar{
+.progress{
 height:12px;
 background:#222;
 border-radius:6px;
 overflow:hidden;
 }
-
-.progress-bar div{
+.progress div{
 height:100%;
-background:var(--gold);
+background:var(--primary);
 width:60%;
-transition:width 1s ease;
+transition:1s ease;
 }
 
-/* ===============================
-   CTA
-================================= */
-
-.cta{
-padding:140px 8vw;
-text-align:center;
-background:linear-gradient(180deg,#111,#000);
+/* FAQ */
+.faq{
+padding:150px 8vw;
+background:var(--surface);
 }
-
-.cta button{
-background:var(--gold);
-padding:20px 60px;
-border:none;
-border-radius:50px;
-font-weight:700;
+.faq-item{
+padding:30px 0;
+border-bottom:1px solid #111;
 cursor:pointer;
-transition:var(--transition);
+}
+.faq-question{
+display:flex;
+justify-content:space-between;
+font-family:var(--font-head);
+}
+.faq-answer{
+display:none;
+margin-top:15px;
+color:var(--text-dim);
 }
 
-.cta button:hover{
-transform:scale(1.05);
-}
-
-/* ===============================
-   FOOTER
-================================= */
-
+/* FOOTER */
 footer{
-padding:60px;
-text-align:center;
-color:var(--muted);
-font-size:0.8rem;
+padding:100px 8vw;
+background:#000;
 border-top:1px solid #111;
+font-size:0.8rem;
+color:var(--text-dim);
+}
+
+/* RESPONSIVE */
+@media(max-width:1200px){
+.grid{grid-template-columns:1fr;}
+.card{grid-column:span 12;}
+.stats{grid-template-columns:1fr 1fr;}
+.dash-window{grid-template-columns:1fr;}
 }
 
 </style>
@@ -221,94 +272,179 @@ border-top:1px solid #111;
 
 <body>
 
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
 <div class="bg-grid"></div>
 
 <nav id="nav">
 <div class="logo">TITAN<span>ONYX</span></div>
-<div>
-<a href="#revenue">Revenue Engine</a>
-<a href="#dashboard">Live System</a>
-<a href="#contact">Start</a>
+<div class="nav-items">
+<a href="#tech">TECH</a>
+<a href="#stats">GLOBAL</a>
+<a href="#revenue">ROI</a>
+<a href="#faq">SECURITY</a>
 </div>
 </nav>
 
 <section class="hero">
-<h1>PRECISION<br><span>DOMINATION</span></h1>
-<p>Die globale Infrastruktur für Premium-Kaltfunken-Systeme. Skalierbar. Intelligent. Verkauft für Sie.</p>
+<span class="hero-tag">// GLOBAL INDUSTRIAL GRADE SYSTEM</span>
+<h1 class="hero-title">PRECISION<br><span>ARCHITECTURE</span></h1>
+<p>Enterprise Cold-Spark Systems für Premium Events, Broadcast Produktionen und internationale Launches.</p>
+</section>
+
+<section id="tech" class="grid">
+<div class="card">
+<h3>SMART CORE V11</h3>
+<p>DMX Over-Air, adaptive Temperaturkontrolle, selbstdiagnostische Fehleranalyse und Cloud-Monitoring-Ready.</p>
+</div>
+<div class="card">
+<h3>ZERO EMISSION</h3>
+<p>Kein Rauch, kein Schwarzpulver, keine Genehmigungspflicht. Indoor zertifiziert.</p>
+</div>
+<div class="card">
+<h3>5.5M OUTPUT</h3>
+<p>Stufenlos regulierbare Fontänenhöhe von 1–5.5m mit Encoder-Feedback.</p>
+</div>
+</section>
+
+<section id="stats" class="stats">
+<div>
+<div class="stat-val" id="s1">0</div>
+<div class="stat-label">Installationen</div>
+</div>
+<div>
+<div class="stat-val" id="s2">0</div>
+<div class="stat-label">Länder</div>
+</div>
+<div>
+<div class="stat-val" id="s3">0</div>
+<div class="stat-label">Events</div>
+</div>
+<div>
+<div class="stat-val" id="s4">0</div>
+<div class="stat-label">Zertifikate</div>
+</div>
 </section>
 
 <section id="revenue" class="revenue">
-<h2 style="text-align:center;margin-bottom:60px">EVENT REVENUE SIMULATOR</h2>
+<h2 style="text-align:center;margin-bottom:60px;font-family:var(--font-head)">REVENUE ENGINE</h2>
 <div class="rev-box">
 <label>Events pro Monat</label>
 <input type="range" min="1" max="40" value="10" id="events">
-
-<label>Durchschnittlicher Umsatz pro Event (€)</label>
-<input type="number" id="eventValue" value="5000">
-
+<label>Ø Event Budget (€)</label>
+<input type="number" id="budget" value="5000">
 <label>Upsell Rate (%)</label>
 <input type="number" id="upsell" value="15">
-
 <div class="rev-result">
 Monatlicher Zusatzgewinn: <span id="revOutput">7500€</span>
 </div>
 </div>
 </section>
 
-<section id="dashboard" class="dashboard">
-<h2 style="text-align:center;margin-bottom:60px">LIVE SYSTEM SIMULATION</h2>
-<div class="dash-box">
+<section class="dashboard">
+<h2 style="text-align:center;margin-bottom:60px;font-family:var(--font-head)">LIVE SYSTEM MONITOR</h2>
+<div class="dash-window">
 <div>
 <h3>Granulat Level</h3>
-<div class="progress-bar"><div id="granulat"></div></div>
+<div class="progress"><div id="p1"></div></div>
 </div>
 <div>
-<h3>Temperatur Core</h3>
-<div class="progress-bar"><div id="temp" style="width:40%"></div></div>
+<h3>Core Temperatur</h3>
+<div class="progress"><div id="p2" style="width:40%"></div></div>
 </div>
 </div>
 </section>
 
-<section class="cta" id="contact">
-<h2 style="margin-bottom:40px">Bereit für TITAN ONYX?</h2>
-<button onclick="alert('Cloudflare Worker + Stripe Integration aktivieren.')">Projekt starten</button>
+<section id="faq" class="faq">
+<h2 style="margin-bottom:60px;font-family:var(--font-head)">SICHERHEIT & PROTOKOLLE</h2>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-question">
+<span>Benötigt das System eine Genehmigung?</span>
+<span>+</span>
+</div>
+<div class="faq-answer">
+Nein. Die ONYX-Serie gilt als elektrisches Show-Equipment ohne pyrotechnische Verbrennung.
+</div>
+</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-question">
+<span>Ist das Granulat brennbar?</span>
+<span>+</span>
+</div>
+<div class="faq-answer">
+Das Titan-Granulat ist inert und nicht als Gefahrgut klassifiziert.
+</div>
+</div>
+
 </section>
 
 <footer>
-© 2026 TITAN ONYX — Global Effects Architecture
+© 2026 TITAN ONYX – Global Enterprise Spark Systems
 </footer>
 
 <script>
 
-/* NAV SCROLL */
+/* CURSOR */
+const dot=document.getElementById("cursor-dot");
+const ring=document.getElementById("cursor-ring");
+document.addEventListener("mousemove",e=>{
+dot.style.left=e.clientX+"px";
+dot.style.top=e.clientY+"px";
+ring.style.left=(e.clientX-20)+"px";
+ring.style.top=(e.clientY-20)+"px";
+});
+
+/* NAV */
 window.addEventListener("scroll",()=>{
 document.getElementById("nav")
-.classList.toggle("scrolled",window.scrollY>50)
-})
+.classList.toggle("active",window.scrollY>50);
+});
 
-/* REVENUE CALC */
-const events=document.getElementById("events")
-const eventValue=document.getElementById("eventValue")
-const upsell=document.getElementById("upsell")
-const revOutput=document.getElementById("revOutput")
-
-function calcRevenue(){
-let monthly=events.value*eventValue.value
-let profit=(monthly*upsell.value)/100
-revOutput.innerText=Math.floor(profit)+"€"
+/* STATS */
+function animate(id,end){
+let el=document.getElementById(id);
+let start=0;
+let step=end/100;
+let interval=setInterval(()=>{
+start+=step;
+if(start>=end){start=end;clearInterval(interval);}
+el.innerText=Math.floor(start);
+},20);
 }
-events.oninput=calcRevenue
-eventValue.oninput=calcRevenue
-upsell.oninput=calcRevenue
-calcRevenue()
+animate("s1",1200);
+animate("s2",28);
+animate("s3",4300);
+animate("s4",12);
+
+/* REVENUE */
+const events=document.getElementById("events");
+const budget=document.getElementById("budget");
+const upsell=document.getElementById("upsell");
+const revOutput=document.getElementById("revOutput");
+
+function calc(){
+let monthly=events.value*budget.value;
+let profit=(monthly*upsell.value)/100;
+revOutput.innerText=Math.floor(profit)+"€";
+}
+events.oninput=calc;
+budget.oninput=calc;
+upsell.oninput=calc;
+calc();
 
 /* DASHBOARD ANIMATION */
 setInterval(()=>{
-let gran=document.getElementById("granulat")
-let temp=document.getElementById("temp")
-gran.style.width=Math.random()*100+"%"
-temp.style.width=Math.random()*100+"%"
-},3000)
+document.getElementById("p1").style.width=Math.random()*100+"%";
+document.getElementById("p2").style.width=Math.random()*100+"%";
+},3000);
+
+/* FAQ */
+function toggleFaq(el){
+const ans=el.querySelector(".faq-answer");
+ans.style.display=ans.style.display==="block"?"none":"block";
+}
 
 </script>
 
